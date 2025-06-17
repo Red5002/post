@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>
+        {% block title%}
+          Posts App
+        {% endblock%}
+    </title>
+</head>
+<body>
+    <nav>
+        <a href="/" title="home">Home🏠</a>|
+        <a href="/about" title="about">About😎</a>|
+        {% if user.is_authenticated %}
+        <a href="{% url 'posts:list' %}" title="posts">Posts📰</a>|
+        <a href="{% url 'posts:new-post' %}" title="create new post">create🖋</a>|
+         <form class="logout" action="{% url 'user:logout' %}" method="post">
+            {% csrf_token %}
+            <button class="logout-button" arial-label="this is a user logout">logout</button>
+        </form>
+        {% else %}
+        <a href="{% url 'user:register' %}" title="registration">Sign up🚀</a>|
+        <a href="{% url 'user:login' %}" title="sign in">Login🔓</a>|
+        {% endif %}
+       
+    </nav>
+    <main>
+        {% block content %}
+        Page is currently under maintenance...
+        {% endblock %}
+    </main>
+</body>
+</html>
